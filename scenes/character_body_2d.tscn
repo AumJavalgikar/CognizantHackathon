@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bsic5qpruv16r"]
+[gd_scene load_steps=43 format=3 uid="uid://bsic5qpruv16r"]
 
 [ext_resource type="Script" path="res://scripts/CharacterBody2D.gd" id="1_tdn81"]
 [ext_resource type="Texture2D" uid="uid://xab73jdkfswr" path="res://arts/adam idle/tile018.png" id="2_m43yd"]
@@ -37,6 +37,8 @@
 [ext_resource type="Texture2D" uid="uid://c4474u0nkbyew" path="res://arts/adam run/tile009.png" id="35_dh1ei"]
 [ext_resource type="Texture2D" uid="uid://c4m4lt0obhv85" path="res://arts/adam run/tile010.png" id="36_5yxhl"]
 [ext_resource type="Texture2D" uid="uid://w71deqw8ksuf" path="res://arts/adam run/tile011.png" id="37_l50xu"]
+[ext_resource type="FontFile" uid="uid://cx660tp5v73i1" path="res://fonts/Xolonium-Regular.ttf" id="38_k8m13"]
+[ext_resource type="Texture2D" uid="uid://dql0kymjxkadm" path="res://arts/ui_elements/UI_32x32.png" id="40_cyxhr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ut8uf"]
 animations = [{
@@ -182,18 +184,67 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enu4a"]
 size = Vector2(7.33333, 6.00002)
 
+[sub_resource type="LabelSettings" id="LabelSettings_dc2eb"]
+font = ExtResource("38_k8m13")
+font_size = 140
+outline_size = 40
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Character2DAdam" type="CharacterBody2D"]
-y_sort_enabled = true
+z_as_relative = false
+position = Vector2(205, 182)
 scale = Vector2(3, 3)
+collision_layer = 2
 script = ExtResource("1_tdn81")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(110, 110)
+z_index = 2
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-3.62396e-05, -10.6667)
 sprite_frames = SubResource("SpriteFrames_ut8uf")
-animation = &"run_right"
-frame_progress = 0.283991
+animation = &"idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-y_sort_enabled = true
-position = Vector2(111, 122.333)
+z_as_relative = false
+position = Vector2(-3.62396e-05, 2.66665)
 shape = SubResource("RectangleShape2D_enu4a")
+
+[node name="Node2D" type="Node2D" parent="."]
+scale = Vector2(0.05, 0.05)
+
+[node name="Label" type="Label" parent="Node2D"]
+z_index = 10
+y_sort_enabled = true
+offset_left = -233.333
+offset_top = -586.667
+offset_right = 190.667
+offset_bottom = -391.667
+text = "Adam"
+label_settings = SubResource("LabelSettings_dc2eb")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+scale = Vector2(5, 5)
+exclude_parent = false
+target_position = Vector2(0, 8)
+collision_mask = 2
+
+[node name="interact_prompt" type="Sprite2D" parent="."]
+z_index = 5
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(7.33334, -13)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("40_cyxhr")
+region_enabled = true
+region_rect = Rect2(292, 21, 25, 29)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 1200
+limit_bottom = 624
+limit_smoothed = true
