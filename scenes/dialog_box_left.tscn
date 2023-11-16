@@ -1,0 +1,109 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2620pdyem257"]
+
+[ext_resource type="Script" path="res://scripts/dialog_box.gd" id="1_mhbf8"]
+[ext_resource type="FontFile" uid="uid://dmnwpqf86q7in" path="res://fonts/Pixellari.ttf" id="2_uklmy"]
+[ext_resource type="Texture2D" uid="uid://m60psslmk30y" path="res://arts/ui_elements/dialog_box.png" id="3_xvro2"]
+[ext_resource type="Texture2D" uid="uid://b4cj2lpd7rois" path="res://icon.svg" id="4_gemjr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tl5bv"]
+font = ExtResource("2_uklmy")
+font_size = 40
+font_color = Color(0, 0, 0, 1)
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8v7sy"]
+font = ExtResource("2_uklmy")
+font_size = 60
+font_color = Color(0, 0, 0, 1)
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_a1knx"]
+font = ExtResource("2_uklmy")
+font_size = 35
+font_color = Color(0, 0, 0, 1)
+outline_color = Color(0, 0, 0, 1)
+
+[node name="DialogBox" type="Polygon2D"]
+z_index = 6
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(8, 550)
+scale = Vector2(3.939, 3.939)
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_mhbf8")
+
+[node name="Control" type="Control" parent="."]
+z_index = 7
+z_as_relative = false
+y_sort_enabled = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -0.25387
+offset_right = 39.7461
+offset_bottom = 40.0
+scale = Vector2(0.1, 0.1)
+metadata/_edit_use_anchors_ = true
+
+[node name="DialogBody" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 11.8585
+anchor_top = 0.56734
+anchor_right = 11.8585
+anchor_bottom = 0.56734
+offset_left = 0.399963
+offset_top = -10.0
+offset_right = 1320.4
+offset_bottom = 233.0
+text = "Body"
+label_settings = SubResource("LabelSettings_tl5bv")
+visible_characters = 0
+visible_ratio = 0.0
+metadata/_edit_use_anchors_ = true
+
+[node name="DialogHeader" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 10.9182
+anchor_top = -1.53116
+anchor_right = 10.9182
+anchor_bottom = -0.931165
+offset_left = 25.32
+offset_top = -4.76
+offset_right = 1157.32
+offset_bottom = 47.24
+text = "Header"
+label_settings = SubResource("LabelSettings_8v7sy")
+metadata/_edit_use_anchors_ = true
+
+[node name="Enter" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 33.0708
+anchor_top = 3.17384
+anchor_right = 33.0708
+anchor_bottom = 3.17384
+offset_left = 20.15
+offset_top = -0.0180054
+offset_right = 205.15
+offset_bottom = 70.982
+text = "Enter >>"
+label_settings = SubResource("LabelSettings_a1knx")
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(78.1924, 5.07745)
+scale = Vector2(0.260827, 0.204336)
+texture = ExtResource("3_xvro2")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+
+[node name="Face" type="Sprite2D" parent="."]
+z_index = 6
+y_sort_enabled = true
+position = Vector2(23.4846, 5.36151)
+scale = Vector2(0.184477, 0.146297)
+texture = ExtResource("4_gemjr")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

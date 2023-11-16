@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cx660tp5v73i1"
-path="res://.godot/imported/Xolonium-Regular.ttf-bc2981e3069cff4c34dd7c8e2bb73fba.fontdata"
+uid="uid://dmnwpqf86q7in"
+path="res://.godot/imported/Pixellari.ttf-ae6de562dd0f260a35f431e66b4dd67f.fontdata"
 
 [deps]
 
-source_file="res://fonts/Xolonium-Regular.ttf"
-dest_files=["res://.godot/imported/Xolonium-Regular.ttf-bc2981e3069cff4c34dd7c8e2bb73fba.fontdata"]
+source_file="res://fonts/Pixellari.ttf"
+dest_files=["res://.godot/imported/Pixellari.ttf-ae6de562dd0f260a35f431e66b4dd67f.fontdata"]
 
 [params]
 
