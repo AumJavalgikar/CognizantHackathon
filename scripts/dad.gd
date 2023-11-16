@@ -1,9 +1,12 @@
 extends CharacterBody2D
 
 @export var movement_speed: float = 8000
+@export var character_name = 'Dad'
 @onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
 @onready var tile_map: TileMap = get_tree().get_root().get_node("Map/TileMap")
 @onready var aStar: AStar2D = tile_map.get("aStar")
+var responses = ['Hello!', 'Nice Weather today!', 'Indeed!', 'I wonder where my keys are..']
+var page = 0
 var movement_delta: float 
 var traversing_path = false
 var path = []
@@ -69,6 +72,10 @@ func _physics_process(delta):
 	#print('movement delta :', movement_delta)
 	#print('next path position: ', navigation_agent.get_next_path_position(), 'velocity :', new_velocity)
 		
+func get_response(conversation_store):
+	var response = responses[page]
+	page = (page + 1) % len(responses)
+	return response
 
 func _on_velocity_computed(safe_velocity: Vector2):
 	velocity = safe_velocity

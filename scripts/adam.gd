@@ -2,6 +2,10 @@ extends CharacterBody2D
 
 @onready var _animated_sprite = $AnimatedSprite2D
 @export var speed = 200
+@export var character_name = 'Adam'
+var responses = ['Hey dad!', 'Hows it going?', 'Huh?', 'I dunno']
+var page = 0
+@onready var dialog_manager = get_tree().get_root().get_node("Map/DialogManager")
 var current_idle_animation = 'idle_down'
 func _ready():
 	$interact_prompt.hide()
@@ -9,13 +13,12 @@ func _ready():
 func _process(_delta):
 	if $"RayCast2D".is_colliding():
 		var object = $RayCast2D.get_collider()
-		print('Colliding with ', object, '!')
 		
 		if object.is_in_group("NPC"): 
-			print('Colliding with NPC!')
 			$interact_prompt.show()
-			if Input.is_action_pressed('interact'):
-				object.talk()
+			if Input.is_action_just_pressed('interact'):
+				dialog_manager.initiate_conversation(self, object)
+				#object.begin_conversation($DialogPolygon2D)
 		else:
 			$interact_prompt.hide()
 	else:
@@ -66,4 +69,8 @@ func _process(_delta):
 		velocity.y = 0
 			
 	move_and_slide()
-		
+	
+func get_response(conversation_store):
+	var response = responses[page]
+	page = (page + 1) % len(responses)
+	return response

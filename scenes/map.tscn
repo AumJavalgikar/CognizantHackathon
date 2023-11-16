@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cwtphwvy67v5b"]
+[gd_scene load_steps=46 format=3 uid="uid://cwtphwvy67v5b"]
 
 [ext_resource type="Texture2D" uid="uid://bpokw0qer5kvy" path="res://arts/japanese/20_Japanese_interiors_Black_Shadow_48x48.png" id="1_1peel"]
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_bok38"]
@@ -9,8 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://bp7xa74ec5fs0" path="res://arts/japanese/12_Kitchen_Black_Shadow_48x48.png" id="5_o3164"]
 [ext_resource type="Texture2D" uid="uid://bunols2t5ypo" path="res://arts/japanese/4_Bedroom_Black_Shadow_48x48.png" id="6_6u2v8"]
 [ext_resource type="Script" path="res://scripts/tilemapscript.gd" id="7_jcf46"]
+[ext_resource type="Script" path="res://scripts/draw.gd" id="9_qsw8x"]
 [ext_resource type="PackedScene" uid="uid://vlljtgyhlwf1" path="res://scenes/dad.tscn" id="10_dkm5a"]
-[ext_resource type="Script" path="res://scripts/new_test.gd" id="11_l0w3b"]
+[ext_resource type="Script" path="res://scripts/DialogManager.gd" id="12_plaby"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jiub3"]
 resource_name = "Floor"
@@ -10762,11 +10763,10 @@ visible = false
 navigation_polygon = SubResource("NavigationPolygon_5x1ac")
 
 [node name="Draw" type="Node2D" parent="."]
-visible = false
 z_index = 6
 z_as_relative = false
 y_sort_enabled = true
-script = ExtResource("11_l0w3b")
+script = ExtResource("9_qsw8x")
 
 [node name="TV" type="AnimatedSprite2D" parent="."]
 z_index = 2
@@ -10777,3 +10777,6 @@ sprite_frames = SubResource("SpriteFrames_2lufk")
 
 [node name="Character2DAdam" parent="." instance=ExtResource("2_wpwyu")]
 position = Vector2(233, 145)
+
+[node name="DialogManager" type="Node" parent="."]
+script = ExtResource("12_plaby")

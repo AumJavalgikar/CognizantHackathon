@@ -1,6 +1,6 @@
 [gd_scene load_steps=43 format=3 uid="uid://bsic5qpruv16r"]
 
-[ext_resource type="Script" path="res://scripts/CharacterBody2D.gd" id="1_tdn81"]
+[ext_resource type="Script" path="res://scripts/adam.gd" id="1_mxh62"]
 [ext_resource type="Texture2D" uid="uid://xab73jdkfswr" path="res://arts/adam idle/tile018.png" id="2_m43yd"]
 [ext_resource type="Texture2D" uid="uid://bvgjgxkllipwc" path="res://arts/adam idle/tile019.png" id="3_x6w3y"]
 [ext_resource type="Texture2D" uid="uid://l5rkx8rtqby" path="res://arts/adam idle/tile020.png" id="4_jvkee"]
@@ -195,7 +195,7 @@ z_as_relative = false
 position = Vector2(205, 182)
 scale = Vector2(3, 3)
 collision_layer = 2
-script = ExtResource("1_tdn81")
+script = ExtResource("1_mxh62")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 2
@@ -243,6 +243,8 @@ region_enabled = true
 region_rect = Rect2(292, 21, 25, 29)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+z_index = 6
+y_sort_enabled = true
 limit_left = 0
 limit_top = 0
 limit_right = 1200

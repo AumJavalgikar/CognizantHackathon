@@ -1,13 +1,15 @@
 extends Node2D
 @onready var tile_map = get_tree().get_root().get_node("Map/TileMap")
 @onready var dad = get_tree().get_root().get_node("Map/Dad")
+@onready var camera: Camera2D = get_tree().get_root().get_node("Map/Character2DAdam").get_node('Camera2D')
 @onready var temp = get_tree().get_root().get_node("Map/TileMap").get('size')
 @onready var aStar = get_tree().get_root().get_node("Map/TileMap").get('aStar')
 var customEndIdx = null
 var customStartIdx = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print('IN READY!')
+	pass
+	
 func _input(event):
 	if event is InputEventMouseButton:
 		customStartIdx = tile_map.local_to_map(dad.global_position)
@@ -28,9 +30,7 @@ func has_collision_polygon(i, j):
 	return collision_count
 
 func _draw():
-	
-	print('IN DRAW!')
-	print(temp)
+	draw_circle(camera.get_screen_center_position(), 50, Color.GREEN)
 	var marked_cells = []
 	for i in temp.x:
 		for j in temp.y:
@@ -49,7 +49,6 @@ func _draw():
 		var startIdx = tile_map.getAStarCellId(customStartIdx)
 		var endIdx = tile_map.getAStarCellId(customEndIdx)
 		if aStar.has_point(startIdx) and aStar.has_point(endIdx):
-			print('Found point in start and end!')
 			var path = Array(aStar.get_point_path(startIdx, endIdx))
 			var last_node = path.pop_front()
 			if last_node != null:
@@ -58,10 +57,6 @@ func _draw():
 					draw_circle(Vector2(node[0], node[1]), 5, Color.RED)			
 					draw_line(Vector2(node[0], node[1]), Vector2(last_node[0], last_node[1]), Color.RED)
 					last_node = node
-			else:
-				print('Did not find path from start to end! for ', customStartIdx, ' ', customEndIdx)				
-		else:
-			print('Did not found point in start and end!')
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

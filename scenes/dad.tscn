@@ -1,7 +1,7 @@
 [gd_scene load_steps=40 format=3 uid="uid://vlljtgyhlwf1"]
 
 [ext_resource type="Texture2D" uid="uid://b0phkd8ptyphb" path="res://arts/dad idle/Old_man_Josh_idle_anim_48x48.png" id="1_4shoc"]
-[ext_resource type="Script" path="res://scenes/dad.gd" id="1_75f8s"]
+[ext_resource type="Script" path="res://scripts/dad.gd" id="1_yj4np"]
 [ext_resource type="Texture2D" uid="uid://bmoi5yw8nynag" path="res://arts/dad run/Old_man_Josh_run_48x48.png" id="2_2ib7f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xmdes"]
@@ -281,7 +281,7 @@ size = Vector2(16, 17.6665)
 [node name="Dad" type="CharacterBody2D" groups=["NPC"]]
 z_as_relative = false
 collision_layer = 2
-script = ExtResource("1_75f8s")
+script = ExtResource("1_yj4np")
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
 z_index = 2

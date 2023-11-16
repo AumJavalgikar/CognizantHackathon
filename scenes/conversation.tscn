@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpvvm8eycrttw"]
+
+[ext_resource type="Script" path="res://scripts/conversation.gd" id="1_kt7oa"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_d8tb5"]
+font_size = 59
+
+[sub_resource type="LabelSettings" id="LabelSettings_1w4ts"]
+font_size = 80
+
+[sub_resource type="LabelSettings" id="LabelSettings_fxg60"]
+font_size = 80
+
+[node name="Conversation" type="Polygon2D"]
+z_index = 6
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(8, 552)
+scale = Vector2(3.90266, 3.18182)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 0, 29.3333, 301.333, 29.3333, 301.333, 0, 158.667, 0)
+script = ExtResource("1_kt7oa")
+
+[node name="Control" type="Control" parent="."]
+z_index = 6
+z_as_relative = false
+y_sort_enabled = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 2.04987
+offset_top = 3.82617
+offset_right = 3469.05
+offset_bottom = 216.826
+scale = Vector2(0.1, 0.1)
+
+[node name="DialogBody" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 81.9955
+offset_top = 112.595
+offset_right = 2981.0
+offset_bottom = 238.595
+text = "Body"
+label_settings = SubResource("LabelSettings_d8tb5")
+
+[node name="DialogHeader" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+offset_top = -13.0
+offset_right = 2919.0
+offset_bottom = 113.0
+text = "Header"
+label_settings = SubResource("LabelSettings_1w4ts")
+
+[node name="Enter" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 2644.35
+offset_top = 112.595
+offset_right = 2919.35
+offset_bottom = 225.595
+text = "Enter >>"
+label_settings = SubResource("LabelSettings_fxg60")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
