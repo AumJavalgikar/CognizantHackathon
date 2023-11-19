@@ -23,13 +23,12 @@ font_size = 35
 font_color = Color(0, 0, 0, 1)
 outline_color = Color(0, 0, 0, 1)
 
-[node name="DialogBox" type="Polygon2D"]
-z_index = 6
+[node name="DialogBox" type="Node2D"]
+z_index = 8
 z_as_relative = false
 y_sort_enabled = true
-position = Vector2(8, 550)
-scale = Vector2(3.939, 3.939)
-color = Color(0, 0, 0, 1)
+position = Vector2(260, 550)
+scale = Vector2(2.6, 3.25)
 script = ExtResource("1_w6atu")
 
 [node name="Control" type="Control" parent="."]
@@ -45,16 +44,17 @@ scale = Vector2(0.1, 0.1)
 metadata/_edit_use_anchors_ = true
 
 [node name="DialogBody" type="Label" parent="Control"]
+z_index = 9
+z_as_relative = false
+y_sort_enabled = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 38.65
-anchor_top = 0.375
-anchor_right = 38.65
-anchor_bottom = 0.375
-offset_left = 0.0012207
-offset_top = -10.0
-offset_right = 1000.0
-offset_bottom = 132.0
+anchor_left = 64.2
+anchor_right = 64.2
+offset_left = -1842.0
+offset_top = 6.0
+offset_right = 0.00170898
+offset_bottom = 147.0
 text = "Body"
 label_settings = SubResource("LabelSettings_tl5bv")
 horizontal_alignment = 2
@@ -63,15 +63,18 @@ visible_ratio = 0.0
 metadata/_edit_use_anchors_ = true
 
 [node name="DialogHeader" type="Label" parent="Control"]
+z_index = 9
+z_as_relative = false
+y_sort_enabled = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 39.3402
+anchor_left = 74.294
 anchor_top = -1.5753
-anchor_right = 39.3402
+anchor_right = 74.294
 anchor_bottom = -1.5753
-offset_left = -7.60645
+offset_left = -594.758
 offset_top = 0.0121689
-offset_right = 995.394
+offset_right = -402.758
 offset_bottom = 63.0122
 text = "Header"
 label_settings = SubResource("LabelSettings_8v7sy")
@@ -79,12 +82,15 @@ horizontal_alignment = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Enter" type="Label" parent="Control"]
+z_index = 9
+z_as_relative = false
+y_sort_enabled = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 37.6405
-anchor_top = 2.6661
-anchor_right = 37.6405
-anchor_bottom = 2.6661
+anchor_left = 13.7119
+anchor_top = 2.38832
+anchor_right = 13.7119
+anchor_bottom = 2.38832
 offset_left = 20.15
 offset_top = -0.0180054
 offset_right = 205.15
@@ -93,11 +99,13 @@ text = "Enter >>"
 label_settings = SubResource("LabelSettings_a1knx")
 metadata/_edit_use_anchors_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(223.407, 4.5697)
-scale = Vector2(0.260827, 0.204336)
+[node name="icon_face" type="Sprite2D" parent="."]
+position = Vector2(280.066, 4.69641)
+scale = Vector2(0.281476, 0.2056)
 texture = ExtResource("3_n2xca")
 flip_h = true
+region_enabled = true
+region_rect = Rect2(0, 0, 166, 164)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.05
@@ -105,8 +113,17 @@ wait_time = 0.05
 [node name="Face" type="Sprite2D" parent="."]
 z_index = 6
 y_sort_enabled = true
-position = Vector2(278.565, 5.10747)
+position = Vector2(280.565, 5.10748)
 scale = Vector2(0.185369, 0.150267)
 texture = ExtResource("4_vb8to")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(151.286, 4.85477)
+scale = Vector2(0.516242, 0.204336)
+texture = ExtResource("3_n2xca")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(175, 10, 409, 144)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

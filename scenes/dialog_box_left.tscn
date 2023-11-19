@@ -23,13 +23,12 @@ font_size = 35
 font_color = Color(0, 0, 0, 1)
 outline_color = Color(0, 0, 0, 1)
 
-[node name="DialogBox" type="Polygon2D"]
-z_index = 6
+[node name="DialogBox" type="Node2D"]
+z_index = 8
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(8, 550)
-scale = Vector2(3.939, 3.939)
-color = Color(0, 0, 0, 1)
+scale = Vector2(2.5, 3.25)
 script = ExtResource("1_mhbf8")
 
 [node name="Control" type="Control" parent="."]
@@ -45,16 +44,19 @@ scale = Vector2(0.1, 0.1)
 metadata/_edit_use_anchors_ = true
 
 [node name="DialogBody" type="Label" parent="Control"]
+z_index = 9
+z_as_relative = false
+y_sort_enabled = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 11.8585
-anchor_top = 0.56734
-anchor_right = 11.8585
-anchor_bottom = 0.56734
-offset_left = 0.399963
-offset_top = -10.0
-offset_right = 1320.4
-offset_bottom = 233.0
+anchor_left = 1.0
+anchor_top = -2.464
+anchor_right = 1.0
+anchor_bottom = -2.464
+offset_left = 435.0
+offset_top = 111.56
+offset_right = 1997.0
+offset_bottom = 262.56
 text = "Body"
 label_settings = SubResource("LabelSettings_tl5bv")
 visible_characters = 0
@@ -62,27 +64,33 @@ visible_ratio = 0.0
 metadata/_edit_use_anchors_ = true
 
 [node name="DialogHeader" type="Label" parent="Control"]
+z_index = 9
+z_as_relative = false
+y_sort_enabled = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 10.9182
-anchor_top = -1.53116
-anchor_right = 10.9182
-anchor_bottom = -0.931165
-offset_left = 25.32
-offset_top = -4.76
-offset_right = 1157.32
-offset_bottom = 47.24
+anchor_left = 0.863
+anchor_top = -2.967
+anchor_right = 0.863
+anchor_bottom = -2.967
+offset_left = 427.48
+offset_top = 65.68
+offset_right = 1430.48
+offset_bottom = 128.68
 text = "Header"
 label_settings = SubResource("LabelSettings_8v7sy")
 metadata/_edit_use_anchors_ = true
 
 [node name="Enter" type="Label" parent="Control"]
+z_index = 9
+z_as_relative = false
+y_sort_enabled = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 33.0708
-anchor_top = 3.17384
-anchor_right = 33.0708
-anchor_bottom = 3.17384
+anchor_left = 51.9994
+anchor_top = 2.34051
+anchor_right = 51.9994
+anchor_bottom = 2.34051
 offset_left = 20.15
 offset_top = -0.0180054
 offset_right = 205.15
@@ -92,9 +100,19 @@ label_settings = SubResource("LabelSettings_a1knx")
 metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(78.1924, 5.07745)
+y_sort_enabled = true
+position = Vector2(150.429, 4.85477)
+scale = Vector2(0.516242, 0.204336)
+texture = ExtResource("3_xvro2")
+region_enabled = true
+region_rect = Rect2(175, 10, 409, 144)
+
+[node name="icon_face" type="Sprite2D" parent="."]
+position = Vector2(23.4286, 4.88885)
 scale = Vector2(0.260827, 0.204336)
 texture = ExtResource("3_xvro2")
+region_enabled = true
+region_rect = Rect2(0, 0, 166, 164)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.05

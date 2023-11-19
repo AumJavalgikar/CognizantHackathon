@@ -12,6 +12,8 @@ var traversing_path = false
 var path = []
 var nextPoint = null
 var idle_direction = 'idle_down'
+var in_conversation = false
+
 
 func getAStarCellId(vCell:Vector2)->int:
 	return int(vCell.y+vCell.x*tile_map.get_used_rect().size.y)
@@ -34,6 +36,9 @@ func set_movement_target(target_pos):
 	#navigation_agent.set_target_position(get_global_mouse_position())
 
 func _physics_process(delta):
+	if in_conversation:
+		$AnimatedSprite2D2.play(idle_direction)
+		return
 	if not traversing_path:
 		$AnimatedSprite2D2.play(idle_direction)
 		return

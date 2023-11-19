@@ -197,6 +197,80 @@ scale = Vector2(3, 3)
 collision_layer = 2
 script = ExtResource("1_mxh62")
 
+[node name="Raycasts" type="Node2D" parent="."]
+
+[node name="RayCastdown1" type="RayCast2D" parent="Raycasts"]
+position = Vector2(3.66666, 3.33333)
+exclude_parent = false
+target_position = Vector2(0, 16)
+collision_mask = 2
+
+[node name="RayCastdown2" type="RayCast2D" parent="Raycasts"]
+position = Vector2(-4.33334, 3.33333)
+exclude_parent = false
+target_position = Vector2(0, 16)
+collision_mask = 2
+
+[node name="RayCastdown3" type="RayCast2D" parent="Raycasts"]
+position = Vector2(0, 3.33333)
+exclude_parent = false
+target_position = Vector2(0, 16)
+collision_mask = 2
+
+[node name="RayCastright1" type="RayCast2D" parent="Raycasts"]
+position = Vector2(3.66666, -2)
+exclude_parent = false
+target_position = Vector2(16, 0)
+collision_mask = 2
+
+[node name="RayCastright2" type="RayCast2D" parent="Raycasts"]
+position = Vector2(3.66667, -7.33333)
+exclude_parent = false
+target_position = Vector2(16, 0)
+collision_mask = 2
+
+[node name="RayCastright3" type="RayCast2D" parent="Raycasts"]
+position = Vector2(4.33334, 3.33335)
+exclude_parent = false
+target_position = Vector2(16, 0)
+collision_mask = 2
+
+[node name="RayCastup1" type="RayCast2D" parent="Raycasts"]
+position = Vector2(1, -7.33333)
+exclude_parent = false
+target_position = Vector2(0, -16)
+collision_mask = 2
+
+[node name="RayCastup2" type="RayCast2D" parent="Raycasts"]
+position = Vector2(-4.33334, -7.33333)
+exclude_parent = false
+target_position = Vector2(0, -16)
+collision_mask = 2
+
+[node name="RayCastup3" type="RayCast2D" parent="Raycasts"]
+position = Vector2(4.33334, -7.33333)
+exclude_parent = false
+target_position = Vector2(2, -16)
+collision_mask = 2
+
+[node name="RayCastleft1" type="RayCast2D" parent="Raycasts"]
+position = Vector2(-4.33334, -2)
+exclude_parent = false
+target_position = Vector2(-16, 0)
+collision_mask = 2
+
+[node name="RayCastleft2" type="RayCast2D" parent="Raycasts"]
+position = Vector2(-4.33334, -7.33333)
+exclude_parent = false
+target_position = Vector2(-16, 0)
+collision_mask = 2
+
+[node name="RayCastleft3" type="RayCast2D" parent="Raycasts"]
+position = Vector2(-4.33333, 3.33333)
+exclude_parent = false
+target_position = Vector2(-16, 0)
+collision_mask = 2
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 2
 z_as_relative = false
@@ -225,12 +299,6 @@ label_settings = SubResource("LabelSettings_dc2eb")
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
-
-[node name="RayCast2D" type="RayCast2D" parent="."]
-scale = Vector2(5, 5)
-exclude_parent = false
-target_position = Vector2(0, 8)
-collision_mask = 2
 
 [node name="interact_prompt" type="Sprite2D" parent="."]
 z_index = 5
