@@ -1,12 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://cdnls5ub2iomo"]
+[gd_scene load_steps=16 format=3 uid="uid://cdnls5ub2iomo"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_ytig7"]
 [ext_resource type="Texture2D" uid="uid://bmeteqxq6lxj8" path="res://arts/ui_elements/icons/arrow_right.png" id="2_2vgo4"]
 [ext_resource type="Texture2D" uid="uid://c5e0wqe8lkssn" path="res://arts/ui_elements/01 Border 02.png" id="3_o3iwf"]
-[ext_resource type="Theme" uid="uid://i71valuwk6hl" path="res://arts/ui_elements/tabcontainer_theme.tres" id="4_2ih8b"]
-[ext_resource type="PackedScene" uid="uid://d2620pdyem257" path="res://scenes/dialog_box_left.tscn" id="4_28awa"]
+[ext_resource type="Theme" path="res://arts/ui_elements/tabcontainer_theme.tres" id="4_2ih8b"]
 [ext_resource type="StyleBox" uid="uid://c6xnpowqpm4q5" path="res://arts/ui_elements/gui_assets/styles_boxes/tab_selected.tres" id="5_gw03c"]
-[ext_resource type="PackedScene" uid="uid://0v0br4wv8g5f" path="res://scenes/dialog_box_right.tscn" id="5_qc5g4"]
 [ext_resource type="StyleBox" uid="uid://bwv4j1d8qkkb6" path="res://arts/ui_elements/gui_assets/styles_boxes/tab_unselected.tres" id="6_4ptet"]
 [ext_resource type="StyleBox" uid="uid://daleoloakp8po" path="res://arts/ui_elements/gui_assets/styles_boxes/tab_disabled.tres" id="7_qs8xi"]
 [ext_resource type="StyleBox" uid="uid://b4o4yrbyie3va" path="res://arts/ui_elements/gui_assets/styles_boxes/tab_panel.tres" id="8_84s65"]
@@ -209,20 +207,5 @@ theme_override_styles/tab_selected = ExtResource("5_gw03c")
 theme_override_styles/tab_unselected = ExtResource("6_4ptet")
 theme_override_styles/tab_disabled = ExtResource("7_qs8xi")
 theme_override_styles/panel = ExtResource("8_84s65")
-
-[node name="Button" type="Button" parent="MainTab/Conversations/ConversationTab"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainTab/Conversations/ConversationTab/Button"]
-layout_mode = 0
-offset_right = 1096.0
-offset_bottom = 466.0
-
-[node name="DialogBox" parent="MainTab/Conversations/ConversationTab/Button/VBoxContainer" instance=ExtResource("4_28awa")]
-position = Vector2(8, 343)
-scale = Vector2(2.6, 3.25)
-
-[node name="DialogBox2" parent="MainTab/Conversations/ConversationTab/Button/VBoxContainer" instance=ExtResource("5_qc5g4")]
-position = Vector2(260, 343)
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

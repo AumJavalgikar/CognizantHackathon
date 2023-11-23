@@ -7,19 +7,19 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_tl5bv"]
 font = ExtResource("2_2rvnm")
-font_size = 40
+font_size = 60
 font_color = Color(0, 0, 0, 1)
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_8v7sy"]
 font = ExtResource("2_2rvnm")
-font_size = 60
+font_size = 75
 font_color = Color(0, 0, 0, 1)
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_a1knx"]
 font = ExtResource("2_2rvnm")
-font_size = 35
+font_size = 40
 font_color = Color(0, 0, 0, 1)
 outline_color = Color(0, 0, 0, 1)
 
@@ -68,14 +68,14 @@ z_as_relative = false
 y_sort_enabled = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 74.294
+anchor_left = 73.9517
 anchor_top = -1.5753
-anchor_right = 74.294
+anchor_right = 73.9517
 anchor_bottom = -1.5753
-offset_left = -594.758
+offset_left = -638.758
 offset_top = 0.0121689
 offset_right = -402.758
-offset_bottom = 63.0122
+offset_bottom = 78.0122
 text = "Header"
 label_settings = SubResource("LabelSettings_8v7sy")
 horizontal_alignment = 2

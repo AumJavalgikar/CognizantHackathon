@@ -7,19 +7,19 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_tl5bv"]
 font = ExtResource("2_uklmy")
-font_size = 40
+font_size = 60
 font_color = Color(0, 0, 0, 1)
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_8v7sy"]
 font = ExtResource("2_uklmy")
-font_size = 60
+font_size = 75
 font_color = Color(0, 0, 0, 1)
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_a1knx"]
 font = ExtResource("2_uklmy")
-font_size = 35
+font_size = 40
 font_color = Color(0, 0, 0, 1)
 outline_color = Color(0, 0, 0, 1)
 
