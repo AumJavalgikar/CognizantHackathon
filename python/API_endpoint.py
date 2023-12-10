@@ -12,12 +12,13 @@ app = FastAPI()
 
 client = AsyncOpenAI(
     api_key=os.getenv('OPENAI_KEY'),
+    base_url="https://openrouter.ai/api/v1"
 )
 
 @app.get("/")
 async def test():
     response = await client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="huggingfaceh4/zephyr-7b-beta",
         messages=[
             {"role": "system", "content": 'This is a test, respond with "GPT works"'},
             {"role": "user", "content": ''},
@@ -53,34 +54,40 @@ async def read_item(conversation_info: dict):
         conversation_initate_reason = conversation_info.get('conversation_initate_reason')
         last_response = f'''
         You decided to initiate conversation with {other_speaker} for the following reason : {conversation_initate_reason}\n
-        Now you can say something to begin the conversation
+        Now fill the empty value in this dictionary : {{"conversation_response" : ""}} with your response as {current_speaker}.
         '''
     else:
         last_response = f'''
-        Last response by {other_speaker} :
-        {current_time} {other_speaker} : {new_response}
+        {other_speaker} said '{new_response}'
+        Now fill the empty value in this dictionary : {{"conversation_response" : ""}} with your response as {current_speaker}.
         '''
 
     with open('prompts/conversation/base_prompt.yaml') as f:
         base_prompt = yaml.safe_load(f)
         system_prompt = base_prompt.get('system')
-        user_prompt = base_prompt.get('user_prompt')
-        system_prompt.format(current_speaker_details=get_character_details(current_speaker),
+        user_prompt = base_prompt.get('user')
+        system_prompt = system_prompt.format(current_speaker_details=get_character_details(current_speaker),
                              other_speaker=other_speaker,
                              other_speaker_details=get_character_details(other_speaker),
                              conversation_history=conversation_history)
-        user_prompt.format(last_response=last_response)
+        user_prompt = user_prompt.format(last_response=last_response)
+
+    print(system_prompt)
+    print(user_prompt)
 
     response = await client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="huggingfaceh4/zephyr-7b-beta",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
             {"role": "assistant", "content": ""}
             ]
     )
-
-    conversation_response = json.loads(response.choices[0].message.content, strict=False)
+    print(response.choices[0].message.content)
+    import re
+    regex = re.compile('({.*})')
+    json_response = regex.findall(response.choices[0].message.content)[0].replace('\'', '\\\'')
+    conversation_response = json.loads(json_response, strict=True)
 
     update_conversation_history(current_speaker, other_speaker, current_time, conversation_response)
 
@@ -109,15 +116,16 @@ def get_conversation_history(char1, char2):
 
 
 def update_conversation_history(char1, char2, timestamp, new_response):
+    new_response = new_response['conversation_response']
     with open(f'conversations/{char1}/{char2}', 'a') as f:
         f.write(f'\n{timestamp} {char1} : {new_response}')
 
-    with open(f'conversations/{char1}/{char2}', 'a') as f:
+    with open(f'conversations/{char2}/{char1}', 'a') as f:
         f.write(f'\n{timestamp} {char1} : {new_response}')
 
 
 def get_character_details(character):
     with open(f'prompts/character_details/{character}.yaml', 'r') as f:
         details = yaml.safe_load(f)
-    return details
+    return details['character_details']
 

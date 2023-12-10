@@ -14,9 +14,9 @@ system : |
   {conversation_history}
   
   >> Response JSON syntax :
-   {{'conversation_response' : 'your response'}}
+   {{"conversation_response" : "your response of max length 20 words"}}
+  
+  Give the response in above syntax only, don't add any more text, just the conversation_response key and value pair.
 
 user : |
-  
   {last_response}
-  >> Now generate a response from the given JSON syntax
