@@ -5,6 +5,7 @@ import openai
 from openai import AsyncOpenAI
 import yaml
 import json
+import re
 
 load_dotenv('secrets/secrets.env')
 
@@ -84,7 +85,6 @@ async def read_item(conversation_info: dict):
             ]
     )
     print(response.choices[0].message.content)
-    import re
     regex = re.compile('({.*})')
     json_response = regex.findall(response.choices[0].message.content)[0].replace('\'', '\\\'')
     conversation_response = json.loads(json_response, strict=True)
