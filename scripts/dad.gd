@@ -13,13 +13,26 @@ var path = []
 var nextPoint = null
 var idle_direction = 'idle_down'
 var in_conversation = false
-
+var locations = {
+	'Refrigerator(Kitchen)' : [17,2],
+	'TV(Living room)' : [3, 3],
+	'Bed(Bedroom)' : [19, 11],
+	'Sink(Kitchen)' : [19, 2],
+	'Toy Train Set(Living room)' : [6, 11],
+	'Table(Living room)' : [4, 6],
+	'Table(Bedroom)' : [16, 7],
+	'Table(Kitchen)' :[9, 3]
+}
+var last_location = 'Table(Living room)'
+var last_action = 'idle'
 
 func getAStarCellId(vCell:Vector2)->int:
 	return int(vCell.y+vCell.x*tile_map.get_used_rect().size.y)
 
 func _ready():
 	$AnimatedSprite2D2.play("idle_down")
+	$Thinking.hide()
+	get_next_action()
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 
 func _input(event):
@@ -85,3 +98,37 @@ func get_response(conversation_store):
 func _on_velocity_computed(safe_velocity: Vector2):
 	velocity = safe_velocity
 	move_and_slide()
+#'character_name' : 'character1_name',
+#    'current_time': 'time',
+ #   'other_character_status' : 'statuses'
+func get_next_action():
+	$Thinking.show()
+	$Thinking.play("default")
+	$HTTPRequest.request("http://127.0.0.1:8000/getAction/", [], HTTPClient.METHOD_GET, JSON.new().stringify({'character_name' : self.character_name,
+	'current_time': '[8: 00 pm]',
+	'other_character_status': 'Unknown',
+	'last_location' : last_location,
+	'last_action' : last_action}))
+
+func _on_http_request_request_completed(result, response_code, headers, body):
+	$Thinking.hide()
+	var json = JSON.new()
+	json.parse(body.get_string_from_utf8())
+	var response = json.get_data()
+	var move_to = response['move_to']
+	var action = response['action']
+	
+	self.last_location = move_to
+	self.last_action = action
+	
+	$ThinkingControl/ThinkingLabel.text = action
+	set_movement_target(get_location_coords(move_to))
+
+func get_location_coords(move_to):
+	var cell = self.locations[move_to]
+	return Vector2i(cell[0], cell[1])
+
+
+func _on_action_timer_timeout():
+	if !in_conversation:
+		get_next_action()

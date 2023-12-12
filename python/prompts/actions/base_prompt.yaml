@@ -27,65 +27,71 @@ system : |
 
     You can perform any action by first moving to the location, then describing what you're doing. 
     Except if you want to speak with another person, the syntax is given below. A journal_entry is also generated describing what you did, 
-    Journal entry should be in the first person.
+    Journal entry should be in the first person, maximum length of 20 words.
 
-    1 >> Syntax to speak with a character
-    Syntax : {{event : 'speak', with : 'Adam', about : 'I want to talk about a vacation to America', journal_entry:'some entry describing what you did'}}
-
-    2 >> Syntax to perform any action
-    Examples:
-    > If you want to watch TV (In Living Room)
-    Syntax : {{event : 'action', move_to: 'TV', action: 'Watching TV..', journal_entry:'some entry describing what you did'}}
-
-    > If you want to Sleep in Bed (In Bedroom)
-    Syntax : {{event : 'action', move_to: 'Bed', action: 'Sleeping..', journal_entry:'some entry describing what you did'}}
-
-
-    > If you want to Meditate (In Living Room)
-    Syntax : {{event : 'action', move_to: 'Bed', action: 'Sleeping..', journal_entry:'some entry describing what you did'}}
-
-    > If you want to Cook (In Kitchen)
-    Syntax : {{event : 'action', move_to: 'Kitchen', action: 'Cooking Pasta..', journal_entry:'some entry describing what you did'}}
-
-
-    > If you want to Grab a sprite from the refrigerator (In Kitchen)
-    Syntax :  {{event : 'action', move_to: 'Refrigerator', action: 'Grabbing sprite from refrigerator..', journal_entry:'some entry describing what you did'}}
-
-    > If you want to read a book at Table (In Bedroom)
-    Syntax :  {{event : 'action', move_to: 'Table(Bedroom)', action: 'Reading the Davinci Code..', journal_entry:'some entry describing what you did'}}
+    Syntax to speak with a character:
+  {{ "event": "speak", "with": "Adam", "about": "I want to talk about a vacation to America", "journal_entry": "some entry describing what you did" }}
   
-  >> Output Validation System :
-  We are using a strict output validation system, the response you send is parsed by this output validation system.
-  EXAMPLES:
-  The following responses were accepted by the OVS :
-  1. {{event : 'speak', with : 'Adam', about : 'I want to talk about a vacation to America', journal_entry:'some entry describing what you did'}}
-  2. {{event : 'action', move_to: 'Kitchen', action: 'Cooking Pasta..', journal_entry:'some entry describing what you did'}}
-  3. {{event : 'action', move_to: 'Refrigerator', action: 'Grabbing sprite from refrigerator..', journal_entry:'some entry describing what you did'}}
+  Syntax to perform any action:
   
-  The above three examples are accepted because they are all following the JSON syntax and move_to locations are within the provided list of available locations for action events.
+  If you want to watch TV (In Living Room)
+  {{ "event": "action", "move_to": "TV", "action": "Watching TV..", "journal_entry": "some entry describing what you did" }}
   
-  The output validation system rejects the following responses :
-  1. I want to go to the bedroom table to study
-  2. {{event : 'action', move_to: 'Oven(Kitchen)', action: 'Baking Bread..', journal_entry:'some entry describing what you did'}}
-  3. Here is the latest response : {{event : 'action', move_to: 'Refrigerator', action: 'Grabbing sprite from refrigerator..', journal_entry:'some entry describing what you did'}}
-  {{event : 'action', move_to: 'Kitchen', action: 'Cooking Pasta..', journal_entry:'some entry describing what you did'}}
-  4. {{
-  event : 'action', 
-  move_to: 'Kitchen', 
-  action: 'Cooking Pasta..', 
-  journal_entry:'some entry describing what you did'
+  If you want to Sleep in Bed (In Bedroom)
+  {{ "event": "action", "move_to": "Bed", "action": "Sleeping..", "journal_entry": "some entry describing what you did" }}
+  
+  If you want to Meditate (In Living Room)
+  {{ "event": "action", "move_to": "Bed", "action": "Sleeping..", "journal_entry": "some entry describing what you did" }}
+  
+  If you want to Cook (In Kitchen)
+  {{ "event": "action", "move_to": "Kitchen", "action": "Cooking Pasta..", "journal_entry": "some entry describing what you did" }}
+  
+  If you want to Grab a sprite from the refrigerator (In Kitchen)
+  {{ "event": "action", "move_to": "Refrigerator", "action": "Grabbing sprite from refrigerator..", "journal_entry": "some entry describing what you did" }}
+  
+  If you want to read a book at Table (In Bedroom)
+  {{ "event": "action", "move_to": "Table(Bedroom)", "action": "Reading the Davinci Code..", "journal_entry": "some entry describing what you did" }}
+  
+  Output Validation System:
+  
+  Examples:
+  
+  1.{{ "event": "speak", "with": "Adam", "about": "I want to talk about a vacation to America", "journal_entry": "some entry describing what you did" }}
+  2.{{ "event": "action", "move_to": "Kitchen", "action": "Cooking Pasta..", "journal_entry": "some entry describing what you did" }}
+  3.{{ "event": "action", "move_to": "Refrigerator", "action": "Grabbing sprite from refrigerator..", "journal_entry": "some entry describing what you did" }}
+  Rejected responses:
+  
+  I want to go to the bedroom table to study
+  1.{{ "event": "action", "move_to": "Oven(Kitchen)", "action": "Baking Bread..", "journal_entry": "some entry describing what you did" }}
+  2.Here is the latest response:
+  {{ "event": "action", "move_to": "Refrigerator", "action": "Grabbing sprite from refrigerator..", "journal_entry": "some entry describing what you did" }}
+  3.{{ "event": "action", "move_to": "Kitchen", "action": "Cooking Pasta..", "journal_entry": "some entry describing what you did" }}
+  4.{{
+  "event": "action",
+  "move_to": "Kitchen",
+  "action": "Cooking Pasta..",
+  "journal_entry": "some entry describing what you did"
   }}
+  (For this next example assume Journal contains an entry about washing dishes in the sink)
+  5. {{ "event": "action", "move_to": "Sink(Kitchen)", "action": "Washing dishes after dinner.", "journal_entry": "Cleaning dishes after dinner." }}
   
   The above responses are rejected because,
   1. The first one does not follow the JSON syntax, also there is unnecessary text 'I want to go to the bedroom table to study', hence it is rejected.
   2. Even though the JSON is provided,the move_to location 'Oven(Kitchen)' is not in the list of provided available locations, hence it is rejected.
   3. There is unnecessary text 'Here is the latest response :', also there are more than one responses, when only one is needed, hence it is rejected.
   4. There are newline characters, the entire response should be in one line with no newline characters, which is why it is rejected.
+  5. The JSON syntax is followed, but in this case the journal entry contains a similar action performed recently, hence it is rejected.
+  
   >> There exists a machine called Response Generator that generates a response that is accepted by the output validation system.
 
 
 
 user : |
   >> Seed for randomness : {random_seed}
+  >> The action you perform can be absolutely anything, it does not necessarily have to be one of your hobbies, it could be housework, chores, cleaning, cooking, absolutely anything
+  >> Don't repeat actions in your journal, keep it new.
+  >> Your last action was : {last_action}
+  >> Your last location was : {last_location}
+  >> Go somewhere else and do something else, don't go to your last location nor do your last action again.
   >> Now the Response Generator is generating an action for {character_name}..
   

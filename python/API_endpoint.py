@@ -16,14 +16,13 @@ app = FastAPI()
 
 client = AsyncOpenAI(
     api_key=os.getenv('OPENAI_KEY'),
-    base_url="https://openrouter.ai/api/v1"
 )
 
 
 @app.get("/")
 async def test():
     response = await client.chat.completions.create(
-        model="huggingfaceh4/zephyr-7b-beta",
+        model="gpt-3.5-turbo-16k",
         messages=[
             {"role": "system", "content": 'This is a test, respond with "GPT works"'},
             {"role": "user", "content": ''},
@@ -83,7 +82,7 @@ async def getConversationResponse(conversation_info: dict):
     print(user_prompt)
 
     response = await client.chat.completions.create(
-        model="huggingfaceh4/zephyr-7b-beta",
+        model="gpt-3.5-turbo-16k",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
@@ -115,6 +114,8 @@ async def getAction(action_info: dict):
     current_time = action_info.get('current_time')
     other_character_status = action_info.get('other_character_status')
     journal = get_journal(character_name)
+    last_location = action_info.get('last_location')
+    last_action = action_info.get('last_action')
 
     with open('prompts/actions/base_prompt.yaml') as f:
         base_prompt = yaml.safe_load(f)
@@ -125,13 +126,15 @@ async def getAction(action_info: dict):
                                              current_speaker_details=get_character_details(character_name),
                                              journal=journal)
         user_prompt = user_prompt.format(character_name=character_name,
-                                             random_seed=random.randint(0, 10000))
+                                             random_seed=random.randint(0, 10000),
+                                         last_location=last_location,
+                                         last_action=last_action)
 
     print(system_prompt)
     print(user_prompt)
 
     response = await client.chat.completions.create(
-        model="huggingfaceh4/zephyr-7b-beta",
+        model="gpt-3.5-turbo-16k",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},

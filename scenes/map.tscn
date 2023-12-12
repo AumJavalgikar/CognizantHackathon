@@ -17346,6 +17346,7 @@ visible = false
 navigation_polygon = SubResource("NavigationPolygon_5x1ac")
 
 [node name="Draw" type="Node2D" parent="."]
+visible = false
 z_index = 6
 z_as_relative = false
 y_sort_enabled = true
