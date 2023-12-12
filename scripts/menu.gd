@@ -3,7 +3,6 @@ extends Control
 var tween
 
 func _ready():
-	$TileMap.hide()
 	position = Vector2(3, 648)
 
 func enable_button():
@@ -22,5 +21,4 @@ func _on_button_pressed():
 	else:
 		$Button.disabled = true				
 		tween.tween_property(self, "position", Vector2(3, 648), 2)
-		tween.tween_callback($TileMap.hide)		
 		tween.tween_callback(enable_button)			

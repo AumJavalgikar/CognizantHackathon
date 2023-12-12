@@ -13,17 +13,17 @@ func initiate_conversation(char1, char2):
 	sig.connect(_on_conversation_end_conversation)
 	#add_child(instance)
 	
-	var button = Button.new()
-	button.name = char1.character_name + ' & ' + char2.character_name
-	
 	var vbox = VBoxContainer.new()
-	
-	button.size = Vector2(1096, 466)
 	vbox.size = Vector2(1096, 466)
-	
 	vbox.add_child(instance)
-	button.add_child(vbox)
-	ConversationTab.add_child(button)
+	vbox.layout_mode	
+	
+	var scroll = ScrollContainer.new()
+	scroll.size = Vector2(1096, 466)	
+	scroll.add_child(vbox)
+	
+	scroll.name = char1.character_name + ' & ' + char2.character_name
+	ConversationTab.add_child(scroll)
 	char1.in_conversation = true
 	char2.in_conversation = true
 	

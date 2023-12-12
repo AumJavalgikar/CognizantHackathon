@@ -35,19 +35,23 @@ func set_characters(c1, c2):
 	currently_speaking = char1
 	
 func create_dialog_box(character_name, content):
-	var dialog_box = dialog_box_left if currently_speaking == char1 else dialog_box_right
-	var dialog_box_instance = dialog_box.instantiate()
-	dialog_box_instance.set_contents(character_name, content)
+	#var dialog_box = dialog_box_left if currently_speaking == char1 else dialog_box_right
+	#var dialog_box_instance = dialog_box.instantiate()
+	#dialog_box_instance.set_contents(character_name, content)
+	var dialog_box_instance = Label.new()
+	dialog_box_instance.z_index = 10
+	dialog_box_instance.text = character_name + ' :' + content
 	
 	dialog_boxes.push_front(dialog_box_instance)
 	
-	add_child(dialog_box_instance)
+	get_parent().add_child(dialog_box_instance)
 
-	if show_dialog_box:
-		show_next_dialog_box()
+	#if show_dialog_box:
+	#	show_next_dialog_box()
 	
 func begin_conversation():
 	$Timer.start()
+
 
 func show_next_dialog_box():
 	print('In next dialog box')

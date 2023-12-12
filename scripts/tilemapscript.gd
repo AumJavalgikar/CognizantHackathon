@@ -7,17 +7,17 @@ func getAStarCellId(vCell:Vector2)->int:
 	return int(vCell.y+vCell.x*self.get_used_rect().size.y)
 
 func has_collision_polygon(i, j):
-	var collision_count = 0
+	var is_colliding
 	for layer in range(get_layers_count()):
 		var tile_data: TileData = get_cell_tile_data(layer, Vector2i(i, j))
 		if tile_data == null:
 			continue
 		#print('Found tile data for ', i, ' ', j, ' in layer ', layer)		
-		collision_count = tile_data.get_collision_polygons_count(0)
+		is_colliding = tile_data.get_collision_polygons_count(0) > 0 or tile_data.get_collision_polygons_count(1) > 0
 		#print('collision count for ', i, ' ', j, ' :', collision_count, ' in layer ', layer)
-		if collision_count != 0:
-			return collision_count
-	return collision_count
+		if is_colliding:
+			return is_colliding
+	return is_colliding
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,8 +29,8 @@ func initiate_astar():
 	var marked_cells = []
 	for i in size.x:
 		for j in size.y:
-			var collison_count = has_collision_polygon(i, j)
-			if collison_count == 0:
+			var is_colliding = has_collision_polygon(i, j)
+			if !is_colliding:
 				var idx = getAStarCellId(Vector2(i,j))
 				aStar.add_point(idx, map_to_local(Vector2(i,j)))
 				marked_cells.append([i, j])

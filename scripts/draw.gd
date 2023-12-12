@@ -17,26 +17,31 @@ func _input(event):
 		queue_redraw()
 
 func has_collision_polygon(i, j):
-	var collision_count = 0
+	var is_colliding
 	for layer in range(0, tile_map.get_layers_count()):
 		var tile_data: TileData = tile_map.get_cell_tile_data(layer, Vector2i(i, j))
 		if tile_data == null:
 			continue
 		#print('Found tile data for ', i, ' ', j, ' in layer ', layer)		
-		collision_count = tile_data.get_collision_polygons_count(0)
+		is_colliding = tile_data.get_collision_polygons_count(0) > 0 or tile_data.get_collision_polygons_count(1) > 0 
 		#print('collision count for ', i, ' ', j, ' :', collision_count, ' in layer ', layer)
-		if collision_count != 0:
-			return collision_count
-	return collision_count
+		if is_colliding:
+			return is_colliding
+	return is_colliding
 
 func _draw():
-	draw_circle(camera.get_screen_center_position(), 50, Color.GREEN)
 	var marked_cells = []
 	for i in temp.x:
 		for j in temp.y:
-			var collison_count = has_collision_polygon(i, j)
-			if collison_count == 0:
-				draw_circle(tile_map.map_to_local(Vector2i(i, j)), 5, Color.GREEN)
+			var is_colliding = has_collision_polygon(i, j)
+			if !is_colliding:
+				var new_label = Label.new()
+				var local_coords = tile_map.map_to_local(Vector2i(i, j))
+				new_label.text = str(i) + ',' + str(j)
+				new_label.position = local_coords
+				new_label.z_index = 10
+				get_parent().add_child(new_label)
+				#draw_circle(tile_map.map_to_local(Vector2i(i, j)), 5, Color.GREEN)
 				marked_cells.append([i, j])	
 							
 	for cell in marked_cells:
@@ -52,9 +57,9 @@ func _draw():
 			var path = Array(aStar.get_point_path(startIdx, endIdx))
 			var last_node = path.pop_front()
 			if last_node != null:
-				draw_circle(Vector2(last_node[0], last_node[1]), 5, Color.RED)			
+				#draw_circle(Vector2(last_node[0], last_node[1]), 5, Color.RED)			
 				for node in path:
-					draw_circle(Vector2(node[0], node[1]), 5, Color.RED)			
+					#draw_circle(Vector2(node[0], node[1]), 5, Color.RED)			
 					draw_line(Vector2(node[0], node[1]), Vector2(last_node[0], last_node[1]), Color.RED)
 					last_node = node
 # Called every frame. 'delta' is the elapsed time since the previous frame.
