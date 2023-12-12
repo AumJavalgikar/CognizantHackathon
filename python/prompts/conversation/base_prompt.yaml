@@ -16,7 +16,30 @@ system : |
   >> Response JSON syntax :
    {{"conversation_response" : "your response of max length 20 words"}}
   
-  Give the response in above syntax only, don't add any more text, just the conversation_response key and value pair.
+  >> Output Validation System :
+  We are using a strict output validation system, the response you send is parsed by this output validation system.
+  EXAMPLES:
+  The following responses were accepted by the OVS :
+  1. {{"conversation_response" : "I told Jack about it I think?"}}
+  2. {{"conversation_response" : "I had a brilliant trip!"}}
+  3. {{"conversation_response" : "I am so hungry.."}}
+  
+  The above three examples are accepted because they are all following the JSON syntax
+  
+  The output validation system rejects the following responses :
+  1. [8:00 pm] Jack : Hello, how are you doing?
+  2. [8:00 pm] Jack : Hey there!
+  {{"conversation_response" : "Hey there!"}}
+  3. Here is the latest response : {{"conversation_response" : "Hey there!"}} {{"conversation_response" : "Hello!"}}
+  
+  The above responses are rejected because,
+  1. The first one does not follow the JSON syntax, also there is unnecessary text '[8:00 pm] Jack : Hello, how are you doing?', hence it is rejected.
+  2. Even though the JSON is provided,the response also contains unnecessary text '[8:00 pm] Jack : Hey there!', which is why it is rejected.
+  3. There is unnecessary text 'Here is the latest response :', also there are more than one responses, when only one is needed, hence it is rejected.
+  
+  >> There exists a machine called Response Generator that generates a response that is accepted by the output validation system.
 
 user : |
   {last_response}
+  
+  Now the Response Generator is generating a response from {current_speaker}..
