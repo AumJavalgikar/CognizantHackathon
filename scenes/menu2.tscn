@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://1cy58igw3a3v"]
+[gd_scene load_steps=6 format=3 uid="uid://1cy58igw3a3v"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_biheo"]
 [ext_resource type="Texture2D" uid="uid://bmeteqxq6lxj8" path="res://arts/ui_elements/icons/arrow_right.png" id="3_mrdhh"]
 [ext_resource type="Theme" uid="uid://86xnxotilae6" path="res://arts/ui_elements/Godot-Clean-and-Modern-editor-theme-main/Clean and Modern.tres" id="4_3s4fm"]
+[ext_resource type="Texture2D" uid="uid://tkc0nnwc2ff8" path="res://arts/ui_elements/UI_48x48.png" id="4_760d0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jptlm"]
+atlas = ExtResource("4_760d0")
+region = Rect2(103, 99.9999, 34, 35)
 
 [node name="MainMenu" type="Control"]
 z_index = 7
@@ -76,14 +81,30 @@ text = "ABCD"
 [node name="Node2D" type="Node2D" parent="MainTab/Conversations/ConversationTab/ScrollContainer/VBoxContainer"]
 
 [node name="LineEdit" type="LineEdit" parent="MainTab/Conversations"]
-layout_mode = 1
-anchors_preset = 12
+layout_mode = 2
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -64.0
+offset_left = 3.0
+offset_top = -66.0
+offset_right = -138.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 0
 placeholder_text = "Enter your response  here"
+
+[node name="Button" type="Button" parent="MainTab/Conversations"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.876
+anchor_top = 0.872
+anchor_right = 0.994
+anchor_bottom = 0.99
+offset_left = -0.468079
+offset_top = 0.231995
+offset_right = -0.442017
+offset_bottom = -0.0600281
+text = "Send"
+icon = SubResource("AtlasTexture_jptlm")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -53,7 +53,6 @@ async def getConversationResponse(conversation_info: dict):
     new_response = conversation_info.get('new_response')
     conversation_initiated = conversation_info.get('conversation_initiated')
     conversation_history = get_conversation_history(current_speaker, other_speaker)
-
     if conversation_initiated:
         conversation_initate_reason = conversation_info.get('conversation_initate_reason')
         last_response = f'''
@@ -72,10 +71,10 @@ async def getConversationResponse(conversation_info: dict):
         user_prompt = base_prompt.get('user')
         system_prompt = system_prompt.format(current_speaker_details=get_character_details(current_speaker),
                                              other_speaker=other_speaker,
-                                             other_speaker_details=get_character_details(other_speaker),
-                                             conversation_history=conversation_history)
+                                             other_speaker_details=get_character_details(other_speaker))
         user_prompt = user_prompt.format(last_response=last_response,
                                          current_speaker=current_speaker,
+                                         conversation_history=conversation_history
                                          )
 
     print(system_prompt)
@@ -181,8 +180,6 @@ def get_conversation_history(char1, char2):
         with open(f'conversations/{char1}/{char2}', 'w') as f:
             f.write(f'Conversation history for {char1} and {char2}\n')
 
-        with open(f'conversations/{char1}/{char2}', 'w') as f:
-            f.write(f'Conversation history for {char1} and {char2}\n')
         with open(f'conversations/{char2}/{char1}', 'w') as f:
             f.write(f'Conversation history for {char2} and {char1}\n')
 

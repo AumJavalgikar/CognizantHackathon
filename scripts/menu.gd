@@ -21,4 +21,10 @@ func _on_button_pressed():
 	else:
 		$Button.disabled = true				
 		tween.tween_property(self, "position", Vector2(3, 648), 2)
-		tween.tween_callback(enable_button)			
+		tween.tween_callback(enable_button)		
+
+func show_menu():
+	$MainTab.set_current_tab(0)
+	var ConvTab: TabContainer = $MainTab/Conversations/ConversationTab
+	ConvTab.set_current_tab(ConvTab.get_tab_count()-1)
+	_on_button_pressed()	

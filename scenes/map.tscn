@@ -17368,4 +17368,3 @@ script = ExtResource("12_plaby")
 [node name="Conversation" parent="." instance=ExtResource("13_0l41e")]
 
 [node name="MainMenu" parent="." instance=ExtResource("15_4y6m7")]
-visible = false

@@ -14,14 +14,16 @@ system : |
     {journal}
   
   >> Available locations you can move to:
+    Kitchen Counter(Kitchen)
+    Food Processor(Kitchen)
     Refrigerator(Kitchen)
     TV(Living room)
     Bed(Bedroom)
-    Sink(Kitchen)
-    Toy Train Set(Living room)
+    Computer(Bedroom)
     Table(Living room)
     Table(Bedroom)
     Table(Kitchen)
+    Hanging Sword Set(Living Room)
   
   >> Available actions :
 
@@ -35,13 +37,13 @@ system : |
   Syntax to perform any action:
   
   If you want to watch TV (In Living Room)
-  {{ "event": "action", "move_to": "TV", "action": "Watching TV..", "journal_entry": "some entry describing what you did" }}
+  {{ "event": "action", "move_to": "TV(Living room)", "action": "Watching TV..", "journal_entry": "some entry describing what you did" }}
   
   If you want to Sleep in Bed (In Bedroom)
-  {{ "event": "action", "move_to": "Bed", "action": "Sleeping..", "journal_entry": "some entry describing what you did" }}
+  {{ "event": "action", "move_to": "Bed(Bedroom)", "action": "Sleeping..", "journal_entry": "some entry describing what you did" }}
   
   If you want to Meditate (In Living Room)
-  {{ "event": "action", "move_to": "Bed", "action": "Sleeping..", "journal_entry": "some entry describing what you did" }}
+  {{ "event": "action", "move_to": "Bed(Bedroom)", "action": "Sleeping..", "journal_entry": "some entry describing what you did" }}
   
   If you want to Cook (In Kitchen)
   {{ "event": "action", "move_to": "Kitchen", "action": "Cooking Pasta..", "journal_entry": "some entry describing what you did" }}

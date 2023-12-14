@@ -3,3 +3,7 @@
 *.tmp
 python/secrets
 python/python_venv
+*.xml
+*.iml
+.idea
+*.pyc

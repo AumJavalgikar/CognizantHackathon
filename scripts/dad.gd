@@ -14,14 +14,17 @@ var nextPoint = null
 var idle_direction = 'idle_down'
 var in_conversation = false
 var locations = {
-	'Refrigerator(Kitchen)' : [17,2],
-	'TV(Living room)' : [3, 3],
-	'Bed(Bedroom)' : [19, 11],
-	'Sink(Kitchen)' : [19, 2],
-	'Toy Train Set(Living room)' : [6, 11],
-	'Table(Living room)' : [4, 6],
-	'Table(Bedroom)' : [16, 7],
-	'Table(Kitchen)' :[9, 3]
+	'Refrigerator(Kitchen)' : [17,2, 'idle_up'],
+	'TV(Living room)' : [3, 3, 'idle_up'],
+	'Bed(Bedroom)' : [19, 11, 'idle_up'],
+	'Sink(Kitchen)' : [19, 2, 'idle_up'],
+	'Toy Train Set(Living room)' : [6, 11, 'idle_up'],
+	'Table(Living room)' : [4, 6, 'idle_left'],
+	'Table(Kitchen)' :[9, 3, 'idle_right'],
+	'Computer(Bedroom)':[16, 7, 'idle_up'],
+	'Kitchen Counter(Kitchen)' :[21, 2, 'idle_up'],
+	'Food Processor(Kitchen)' :[22, 2, 'idle_up'],
+	'Hanging Sword Set(Living Room)' :[7, 6, 'idle_up']
 }
 var last_location = 'Table(Living room)'
 var last_action = 'idle'
@@ -32,8 +35,9 @@ func getAStarCellId(vCell:Vector2)->int:
 func _ready():
 	$AnimatedSprite2D2.play("idle_down")
 	$Thinking.hide()
-	get_next_action()
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	#get_next_action()
+	
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -53,6 +57,7 @@ func _physics_process(delta):
 		$AnimatedSprite2D2.play(idle_direction)
 		return
 	if not traversing_path:
+		$AnimatedSprite2D2.flip_h = false
 		$AnimatedSprite2D2.play(idle_direction)
 		return
 	if navigation_agent.is_navigation_finished() and len(path) > 0:
@@ -73,17 +78,19 @@ func _physics_process(delta):
 	if (current_agent_position.x - next_path_position.x) < -10:
 		$AnimatedSprite2D2.flip_h = false		
 		$AnimatedSprite2D2.play("run_right")
-		idle_direction = 'idle_right'
+		#idle_direction = 'idle_right'
 	elif (current_agent_position.x - next_path_position.x) > 10:
 		$AnimatedSprite2D2.flip_h = true
 		$AnimatedSprite2D2.play("run_right")
-		idle_direction = 'idle_right'
+		#idle_direction = 'idle_right'
 	elif (current_agent_position.y - next_path_position.y) > 10:
 		$AnimatedSprite2D2.play("run_up")
-		idle_direction = 'idle_up'
+		#idle_direction = 'idle_up'
 	elif (current_agent_position.y - next_path_position.y) < -10:
 		$AnimatedSprite2D2.play("run_down")
-		idle_direction = 'idle_down'
+		#idle_direction = 'idle_down'
+	
+	
 		
 	#print('Next position :', next_path_position)
 	#print('Global position :', global_position)
@@ -105,7 +112,7 @@ func get_next_action():
 	$Thinking.show()
 	$Thinking.play("default")
 	$HTTPRequest.request("http://127.0.0.1:8000/getAction/", [], HTTPClient.METHOD_GET, JSON.new().stringify({'character_name' : self.character_name,
-	'current_time': '[8: 00 pm]',
+	'current_time': WorldClock.get_current_time(),
 	'other_character_status': 'Unknown',
 	'last_location' : last_location,
 	'last_action' : last_action}))
@@ -126,6 +133,7 @@ func _on_http_request_request_completed(result, response_code, headers, body):
 
 func get_location_coords(move_to):
 	var cell = self.locations[move_to]
+	idle_direction = cell[2]
 	return Vector2i(cell[0], cell[1])
 
 
