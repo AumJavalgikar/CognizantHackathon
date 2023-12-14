@@ -8,6 +8,7 @@ var dialog_box_right = preload('res://scenes/dialog_box_right.tscn')
 var dialog_box_left = preload('res://scenes/dialog_box_left.tscn')
 var currently_speaking = null
 var show_dialog_box = false
+var reason_for_conversation = 'unknown'
 signal end_conversation
 
 
@@ -89,6 +90,10 @@ func hide_dialog_boxes():
 		box.hide()
 
 func conversation_loop():
+	if char1.name == 'Character2DAdam' or char2.name == 'Character2DAdam':
+		return
+	get_next_agent_response()
+	return
 	print('In conversation loop!')
 	var character_name = currently_speaking.character_name
 	var content = currently_speaking.get_response(conversation_store)
@@ -109,5 +114,59 @@ func conversation_loop():
 		return
 	conversation_loop()
 
+func user_response_received(user_response):
+	create_dialog_box(currently_speaking.character_name, user_response)
+	
+	self.conversation_store.push_front(
+		{
+			'character_name':currently_speaking.character_name,
+			'content':user_response
+		}
+	)
+	
+	currently_speaking = char1 if currently_speaking == char2 else char2	
+	
+	get_next_agent_response()
+	
+func get_next_agent_response():
+	print('Made HTTP request for next agent response')
+	var character_name = currently_speaking.character_name
+	var other_speaker = char1 if currently_speaking == char2 else char2
+	var new_response = null
+	var conversation_initiated = true
+	var conversation_initiated_reason = self.reason_for_conversation
+	
+	if len(self.conversation_store) > 0:
+		new_response = self.conversation_store[0]['content']
+		conversation_initiated = false
+		conversation_initiated_reason = null
+		
+	$HTTPRequest.request("http://127.0.0.1:8000/getConversationResponse/", [], HTTPClient.METHOD_GET, JSON.new().stringify(
+	{
+	'current_speaker': character_name,
+	'other_speaker': other_speaker.character_name,
+	'current_time': WorldClock.get_current_time(),
+	'new_response': new_response,
+	'conversation_initiated': conversation_initiated,
+	'conversation_initiated_reason': conversation_initiated_reason,
+	}
+	))
+
 func _on_timer_timeout():
 	conversation_loop() 
+
+
+func _on_http_request_request_completed(result, response_code, headers, body):
+	print('Received HTTP response for the next response')
+	var json = JSON.new()
+	json.parse(body.get_string_from_utf8())
+	var response = json.get_data()
+	var conversation_response = response['conversation_response']
+	
+	create_dialog_box(currently_speaking.character_name, conversation_response)
+	currently_speaking = char1 if currently_speaking == char2 else char2
+	
+	if currently_speaking.character_name == 'Adam':
+		return
+	else:
+		get_next_agent_response()

@@ -9,10 +9,6 @@ system : |
   
   {other_speaker_details}
   
-  >> Conversation History :
-  
-  {conversation_history}
-  
   >> Response JSON syntax :
    {{"conversation_response" : "your response of max length 20 words"}}
   
@@ -40,6 +36,10 @@ system : |
   >> There exists a machine called Response Generator that generates a response that is accepted by the output validation system.
 
 user : |
+  >> Conversation History :
+  
+  {conversation_history}
+  
   {last_response}
   
   Now the Response Generator is generating a response from {current_speaker}..

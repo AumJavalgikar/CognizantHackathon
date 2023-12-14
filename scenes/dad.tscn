@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://vlljtgyhlwf1"]
+[gd_scene load_steps=56 format=3 uid="uid://vlljtgyhlwf1"]
 
 [ext_resource type="Texture2D" uid="uid://b0phkd8ptyphb" path="res://arts/dad idle/Old_man_Josh_idle_anim_48x48.png" id="1_4shoc"]
 [ext_resource type="Script" path="res://scripts/dad.gd" id="1_yj4np"]
@@ -28,6 +28,26 @@ region = Rect2(1056, 0, 48, 96)
 [sub_resource type="AtlasTexture" id="AtlasTexture_dow33"]
 atlas = ExtResource("1_4shoc")
 region = Rect2(1104, 0, 48, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85qgn"]
+atlas = ExtResource("1_4shoc")
+region = Rect2(0, 0, 48, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38t0p"]
+atlas = ExtResource("1_4shoc")
+region = Rect2(48, 0, 48, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dq4b"]
+atlas = ExtResource("1_4shoc")
+region = Rect2(96, 0, 48, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwvsj"]
+atlas = ExtResource("1_4shoc")
+region = Rect2(144, 0, 48, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n4n2i"]
+atlas = ExtResource("1_4shoc")
+region = Rect2(192, 0, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w4tkt"]
 atlas = ExtResource("1_4shoc")
@@ -164,6 +184,26 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle_down",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85qgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38t0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dq4b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwvsj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n4n2i")
+}],
+"loop": true,
+"name": &"idle_left",
 "speed": 9.0
 }, {
 "frames": [{
@@ -360,8 +400,7 @@ z_as_relative = false
 y_sort_enabled = true
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_a8fln")
-animation = &"run_up"
-frame_progress = 0.05219
+animation = &"idle_left"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_as_relative = false
@@ -374,7 +413,7 @@ target_desired_distance = 6.0
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="ActionTimer" type="Timer" parent="."]
-wait_time = 50.0
+wait_time = 20.0
 autostart = true
 
 [node name="Thinking" type="AnimatedSprite2D" parent="."]
